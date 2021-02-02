@@ -24,15 +24,49 @@ class Node:
         self.right = None
         self.value = value
 
+    def get(self):
+        return self.value
+
+    def set(self, value):
+        self.value = value
+
+    def get_children(self):
+        children = []
+        if self.left:
+            children.append(self.left)
+        if self.right:
+            children.append(self.right)
+
+        return children
+
 
 class BinaryTree:
-    def __init__(self):
-        pass
+    def __init__(self):`
+        self.root = None
 
-    def search(self):
-        pass
+    def insert(self, value):
+        if self.root is None:
+            self.root = Node(value)
+        else:
+            self.insert_node(self.root, value)
 
-    def insert(self):
+    def insert_node(self, node, value):
+        if value < node.get():
+            if node.left:
+                self.insert_node(node.left, value)
+            else:
+                node.left = Node(value)
+        elif value > node.get():
+            if node.right:
+                self.insert_node(node.right, value)
+            else:
+                node.right = Node(value)
+        elif value == node.get():
+            raise Exception('Unable to add nodes with duplicate values')
+        else:
+            raise Exception(f'Unable to determine where to insert { value } beneath node { node.get() }')
+
+    def search(self, value):
         pass
 
     def pre_order(self):
