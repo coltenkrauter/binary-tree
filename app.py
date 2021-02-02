@@ -96,6 +96,20 @@ class BinaryTree:
                 return self.search_node(root.right, value)
         raise Exception(f'Unable to find node with value { value }')
 
+    def search_parent(self, value):
+        return self.search_parent_node(self.root, value)
+
+    def search_parent_node(self, root, value, parent=None):
+        if root:
+            # print(root.get())
+            if value == root.get():
+                return parent
+            if value < root.get():
+                return self.search_parent_node(root.left, value, root)
+            if value > root.get():
+                return self.search_parent_node(root.right, value, root)
+        raise Exception(f'Unable to find node with value { value }')
+
     def pre_order(self, root):
         res = []
         if root:
@@ -136,3 +150,4 @@ tree.insert(17)
 
 print(tree)
 print(tree.search(3))
+print(tree.search_parent(3))
