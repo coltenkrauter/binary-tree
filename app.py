@@ -23,6 +23,9 @@ class Node:
         self.left = None
         self.right = None
         self.value = value
+    
+    def __str__(self):
+        return f'Node { self.value }' 
 
     def get(self):
         return self.value
@@ -80,7 +83,18 @@ class BinaryTree:
             raise Exception(f'Unable to determine where to insert { value } beneath node { node.get() }')
 
     def search(self, value):
-        pass
+        return self.search_node(self.root, value)
+
+    def search_node(self, root, value):
+        if root:
+            # print(root.get())
+            if value == root.get():
+                return root
+            if value < root.get():
+                return self.search_node(root.left, value)
+            if value > root.get():
+                return self.search_node(root.right, value)
+        raise Exception(f'Unable to find node with value { value }')
 
     def pre_order(self, root):
         res = []
@@ -119,4 +133,6 @@ tree.insert(31)
 tree.insert(52)
 tree.insert(17)
 
+
 print(tree)
+print(tree.search(3))
