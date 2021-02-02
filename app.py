@@ -44,6 +44,15 @@ class BinaryTree:
     def __init__(self):
         self.root = None
 
+    def __str__(self):
+        in_order = ', '.join([f'{ i }' for i in self.in_order(self.root)])
+
+        return ( 
+            f'Root: { self.root.get() }\n'
+            f'In-order: { in_order }'
+        )
+        
+
     def insert(self, value):
         if self.root is None:
             self.root = Node(value)
@@ -72,11 +81,24 @@ class BinaryTree:
     def pre_order(self):
         pass
 
-    def in_order(self):
-        pass
+    def in_order(self, root):
+        res = []
+        if root:
+            res = self.in_order(root.left)
+            res.append(root.value)
+            res += self.in_order(root.right)
+        return res
 
     def post_order(self):
         pass
 
 
 tree = BinaryTree()
+tree.insert(7)
+tree.insert(2)
+tree.insert(3)
+tree.insert(5)
+tree.insert(6)
+tree.insert(17)
+
+print(tree)
