@@ -46,10 +46,14 @@ class BinaryTree:
 
     def __str__(self):
         in_order = ', '.join([f'{ i }' for i in self.in_order(self.root)])
+        pre_order = ', '.join([f'{ i }' for i in self.pre_order(self.root)])
+        post_order = ', '.join([f'{ i }' for i in self.post_order(self.root)])
 
         return ( 
             f'Root: { self.root.get() }\n'
-            f'In-order: { in_order }'
+            f'In-order: { in_order }\n'
+            f'Pre-order: { pre_order }\n'
+            f'Post-order: { post_order }\n'
         )
         
 
@@ -78,8 +82,13 @@ class BinaryTree:
     def search(self, value):
         pass
 
-    def pre_order(self):
-        pass
+    def pre_order(self, root):
+        res = []
+        if root:
+            res = [root.value]
+            res += self.pre_order(root.left)
+            res += self.pre_order(root.right)
+        return res
 
     def in_order(self, root):
         res = []
@@ -89,8 +98,13 @@ class BinaryTree:
             res += self.in_order(root.right)
         return res
 
-    def post_order(self):
-        pass
+    def post_order(self, root):
+        res = []
+        if root:
+            res = self.post_order(root.left)
+            res += self.post_order(root.right)
+            res.append(root.value)
+        return res
 
 
 tree = BinaryTree()
@@ -98,7 +112,11 @@ tree.insert(7)
 tree.insert(2)
 tree.insert(3)
 tree.insert(5)
+tree.insert(13)
+tree.insert(523)
 tree.insert(6)
+tree.insert(31)
+tree.insert(52)
 tree.insert(17)
 
 print(tree)
